@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Modelo - Impresiones 3D</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/global.js"></script>
+    <style>
+        /* CORRECCIÓN DE LAYOUT PARA EL SIDEBAR FIXED */
+        body {
+            display: flex;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Forzamos al main a dejarle espacio al nav de 260px */
+        main {
+            flex: 1;
+            margin-left: 260px; /* IMPORTANTE: Esto quita el rectángulo azul */
+            min-height: 100vh;
+            background-color: white;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Si el nav se colapsa (esto lo controla tu js/global.js) */
+        main.expandido {
+            margin-left: 80px;
+        }
+
+        .detalle-contenedor {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .layout-detalle {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .visor-producto {
+            background-color: #f8fbff;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            border: 1px solid #eef2f7;
+            min-height: 400px;
+        }
+
+        .visor-producto img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+
+        .info-compra {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .breadcrumbs { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
+        #titulo-detalle { font-size: 2.8rem; color: #1a3a5a; margin: 0; line-height: 1.2; }
+        .precio-tag { font-size: 2.2rem; color: #27ae60; font-weight: bold; margin: 20px 0; }
+
+        .descripcion h3 {
+            font-size: 1.2rem;
+            color: #1a3a5a;
+            border-bottom: 3px solid #4ebce2;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .especificaciones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .especificaciones span {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #2c3e50;
+            border: 1px solid #d6e9ff;
+        }
+
+        .btn-pedir {
+            background-color: #2c5d81;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-pedir:hover {
+            background-color: #4ebce2;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(78, 188, 226, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <button id="btn-colapsar" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+        <ul>
+            <li><a href="main.html"><i class="fa-solid fa-house"></i> <span>Inicio</span></a></li>
+            <li><a href="catalogo.html"><i class="fa-solid fa-cart-shopping"></i> <span>Catálogo</span></a></li>
+            <li><a href="mis_pedidos.html"><i class="fa-solid fa-box"></i> <span>Mis pedidos</span></a></li>
+            <li><a href="personalizar_impresion.html"><i class="fa-solid fa-palette"></i> <span>Personalizar</span></a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <header>
+            <div class="logo-contenedor"><img src="imagenes/Logo en negro.png" alt="Logo" class="nav-logo"></div>
+            <div class="buscador">
+                <input type="text" id="input-busqueda" placeholder="Buscar categorías..." autocomplete="off">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="iconos-usuario">
+                <i class="fa-regular fa-bell" onclick="document.getElementById('modal-notificaciones').showModal()"></i>
+                <i class="fa-regular fa-comment-dots" onclick="document.getElementById('modal-chat').showModal()"></i>
+                <i class="fa-solid fa-basket-shopping" onclick="window.location.href='mis_pedidos.html'"></i>
+                <i class="fa-regular fa-circle-question"></i>
+            </div>
+        </header>
+
+        <section class="detalle-contenedor">
+            <div class="layout-detalle">
+                <div class="visor-producto">
+                    <img src="" alt="Cargando..." id="img-detalle">
+                </div>
+
+                <div class="info-compra">
+                    <nav class="breadcrumbs">Inicio > Catálogo > <span id="bread-cat">Modelo</span></nav>
+                    <h1 id="titulo-detalle">Cargando...</h1>
+                    <p class="precio-tag" id="precio-detalle">$0.00</p>
+                    
+                    <div class="descripcion">
+                        <h3>Sobre este diseño</h3>
+                        <p id="desc-detalle">Cargando información técnica del autor...</p>
+                    </div>
+
+                    <div class="especificaciones">
+                        <span><i class="fa-solid fa-weight-hanging"></i> <strong>Peso:</strong> <span id="peso-detalle">--</span></span>
+                        <span><i class="fa-solid fa-clock"></i> <strong>Tiempo:</strong> <span id="tiempo-detalle">--</span></span>
+                    </div>
+
+                    <button class="btn-pedir" onclick="window.location.href='personalizar_impresion.html'">
+                        <i class="fa-solid fa-print"></i> Configurar e Imprimir
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const modelo = params.get('modelo');
+
+            const productos = {
+                'carro-feo': {
+                    titulo: "Carro Feo Articulado",
+                    precio: "$150.00",
+                    img: "imagenes/carro_feo.png",
+                    desc: "Un diseño clásico para pruebas de tortura en impresión FDM. Articulaciones impresas en una sola pieza.",
+                    peso: "45g",
+                    tiempo: "3h 20m",
+                    cat: "Articulados"
+                },
+                'dragon': {
+                    titulo: "Dragón de Pared",
+                    precio: "$280.00",
+                    img: "imagenes/dragon.png",
+                    desc: "Modelo decorativo de alta resolución. Requiere configuración de capas finas para resaltar las escamas.",
+                    peso: "120g",
+                    tiempo: "8h 45m",
+                    cat: "Decorativos"
+                }
+            };
+
+            const data = productos[modelo];
+            if (data) {
+                document.getElementById('titulo-detalle').textContent = data.titulo;
+                document.getElementById('precio-detalle').textContent = data.precio;
+                document.getElementById('img-detalle').src = data.img;
+                document.getElementById('desc-detalle').textContent = data.desc;
+                document.getElementById('peso-detalle').textContent = data.peso;
+                document.getElementById('tiempo-detalle').textContent = data.tiempo;
+                document.getElementById('bread-cat').textContent = data.cat;
+            }
+        });
+    </script>
+</body>
+</html>

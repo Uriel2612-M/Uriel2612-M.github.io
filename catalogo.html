@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Impresiones 3D</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/global.js"></script> </head>
+<body>
+    <dialog id="modal-notificaciones" class="modal-pequeño">
+        <div class="modal-header">
+            <h3>Notificaciones</h3>
+            <button onclick="document.getElementById('modal-notificaciones').close()" class="btn-cerrar-x">×</button>
+        </div>
+        <div class="lista-notificaciones">
+            <div class="noti-item">✅ Tu pedido #11 ha sido enviado.</div>
+            <div class="noti-item">👤 Uriel te envió un mensaje.</div>
+        </div>
+    </dialog>
+
+    <dialog id="modal-chat" class="modal-pequeño">
+        <div class="modal-header">
+            <h3>Chat de Soporte</h3>
+            <button onclick="document.getElementById('modal-chat').close()" class="btn-cerrar-x">×</button>
+        </div>
+        <div class="cuerpo-chat">
+            <p class="msg-bot">Hola, ¿en qué podemos ayudarte?</p>
+        </div>
+    </dialog>
+
+    <nav>
+        <button id="btn-colapsar" class="btn-icon">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul>
+            <li><a href="main.html"><i class="fa-solid fa-house"></i> <span>Inicio</span></a></li>
+            <li><a href="catalogo.html"><i class="fa-solid fa-cart-shopping"></i> <span>Catálogo</span></a></li>
+            <li><a href="mis_pedidos.html"><i class="fa-solid fa-box"></i> <span>Mis pedidos</span></a></li>
+            <li><a href="personalizar_impresion.html"><i class="fa-solid fa-palette"></i> <span>Personalizar</span></a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <div class="logo-contenedor">
+                <img src="imagenes/Logo en negro.png" alt="Logo" class="nav-logo">
+            </div>
+            
+            <div class="buscador">
+                <input type="text" id="input-busqueda" list="categorias-3d" placeholder="Buscar diseños..." autocomplete="off">
+                <i class="fa-solid fa-magnifying-glass" id="btn-buscar"></i>
+                <datalist id="categorias-3d">
+                    <option value="Articulados">
+                    <option value="Decorativos">
+                    <option value="Utilitarios">
+                    <option value="Educativos">
+                </datalist>
+            </div>
+
+            <div class="iconos-usuario">
+                <i class="fa-regular fa-bell" onclick="document.getElementById('modal-notificaciones').showModal()"></i>
+                <i class="fa-regular fa-comment-dots" onclick="document.getElementById('modal-chat').showModal()"></i>
+                <i class="fa-solid fa-basket-shopping" onclick="window.location.href='mis_pedidos.html'"></i>
+                <i class="fa-regular fa-circle-question"></i>
+            </div>
+        </header>
+
+        <section class="catalogo-contenedor">
+            <h2 class="titulo-seccion">Catálogo de Modelos</h2>
+
+            <div class="filtros-horizontales">
+                <button class="filtro-btn activo">Todos los Diseños</button>
+                <button class="filtro-btn">Articulados</button>
+                <button class="filtro-btn">Decorativos</button>
+                <button class="filtro-btn">Utilitarios</button>
+                <button class="filtro-btn">Educativos</button>
+                
+                <div class="ordenar-por">
+                    <label>Ordenar por:</label>
+                    <select>
+                        <option>Tendencias</option>
+                        <option>Nuevos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-modelos">
+                
+                <div class="tarjeta-modelo" data-categoria="articulados"onclick="window.location.href='detalle_producto.html?modelo=carro-feo'" 
+     style="cursor: pointer;">
+                    
+                    <div class="imagen-container">
+                        <img src="imagenes/Imagen carro3d.png" alt="Carro">
+                        <button class="btn-wishlist"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="modelo-info">
+                        <h3>Carro </h3>
+                        <p class="autor">por <span>Ing. Software</span></p>
+                        <div class="stats">
+                            <span><i class="fa-solid fa-download"></i> 1.2k</span>
+                            <span><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tarjeta-modelo" data-categoria="decorativos"onclick="window.location.href='detalle_producto.html?modelo=carro-feo'" 
+     style="cursor: pointer;">
+                    <div class="imagen-container">
+                        <img src="imagenes/dragon.png" alt="Dragón">
+                        <button class="btn-wishlist"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="modelo-info">
+                        <h3>Dragón de Pared</h3>
+                        <p class="autor">por <span>Uriel</span></p>
+                        <div class="stats">
+                            <span><i class="fa-solid fa-download"></i> 850</span>
+                            <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const botones = document.querySelectorAll('.filtro-btn');
+        const tarjetas = document.querySelectorAll('.tarjeta-modelo');
+
+        const filtrar = (categoria) => {
+            const catBusqueda = categoria.toLowerCase().trim();
+            tarjetas.forEach(tarjeta => {
+                const catTarjeta = tarjeta.getAttribute('data-categoria').toLowerCase();
+                if (catBusqueda === 'todos los diseños' || catTarjeta === catBusqueda) {
+                    tarjeta.style.display = 'block';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+        };
+
+        botones.forEach(btn => {
+            btn.addEventListener('click', () => {
+                botones.forEach(b => b.classList.remove('activo'));
+                btn.classList.add('activo');
+                filtrar(btn.textContent);
+            });
+        });
+
+        // Reaccionar al buscador del inicio
+        const params = new URLSearchParams(window.location.search);
+        const buscado = params.get('buscar') || params.get('categoria');
+        if (buscado) {
+            botones.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(buscado.toLowerCase())) {
+                    btn.click();
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impresiones 3D</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/outh.js"></script>
+</head>
+<body>
+    <nav>
+        <button id="btn-colapsar" class="btn-icon">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+       </div>
+    <ul>
+            <li><a href="main.html"><i class="fa-solid fa-house"></i> <span>Inicio</span></a></li>
+            <li><a href="catalogo.html"><i class="fa-solid fa-cart-shopping"></i> <span>Catalogo</span></a></li>
+             <li><a href="mis_pedidos.html"><i class="fa-solid fa-box"></i> <span>Mis pedidos</span></a></li>
+            <li><a href="personalizar_impresion.html"><i class="fa-solid fa-palette"></i> <span>Personalizar Impresion</span></a></li>
+        </ul>
+</nav>
+    <main>
+        <header>
+            <div class="logo-contenedor">
+            <img src="imagenes/Logo en negro.png" alt="Logo" class="nav-logo">
+        </div>
+        
+            <div class="buscador">
+               <input type="text" placeholder="Buscar diseños o materiales...">
+               <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+          <div class="iconos-usuario">
+      <i class="fa-regular fa-bell" onclick="document.getElementById('modal-notificaciones').showModal()"></i>
+      <i class="fa-regular fa-comment-dots" onclick="document.getElementById('modal-chat').showModal()"></i>
+      <i class="fa-solid fa-basket-shopping" onclick="window.location.href='mis_pedidos.html'" style="cursor:pointer;"></i>
+      <i class="fa-regular fa-circle-question"></i>
+           </div>
+        </header>
+
+        <section class="pedidos-contenedor">
+        <div class="encabezado-pedidos">
+            <h2 class="titulo-seccion">Mis Pedidos</h2>
+            <button class="btn-ayuda-pedidos">¿Necesitas ayuda con un pedido?</button>
+        </div>
+
+        <div class="estado-vacio-pedidos">
+            <div class="vacio-ilustracion">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3>Aún no tienes pedidos</h3>
+            <p>Parece que todavía no has mandado a imprimir ninguno de tus diseños. ¡Anímate a darle vida a tus ideas!</p>
+            <button class="btn-ir-catalogo" onclick="window.location.href='catalogo.html'">
+                Explorar Catálogo
+            </button>
+        </div>
+    </section>
+
+    </body>
+</html>

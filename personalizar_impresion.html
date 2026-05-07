@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impresiones 3D</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/outh.js"></script>
+</head>
+<body>
+    <nav>
+        <button id="btn-colapsar" class="btn-icon">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+       </div>
+    <ul>
+            <li><a href="main.html"><i class="fa-solid fa-house"></i> <span>Inicio</span></a></li>
+            <li><a href="catalogo.html"><i class="fa-solid fa-cart-shopping"></i> <span>Catalogo</span></a></li>
+             <li><a href="mis_pedidos.html"><i class="fa-solid fa-box"></i> <span>Mis pedidos</span></a></li>
+            <li><a href="personalizar_impresion.html"><i class="fa-solid fa-palette"></i> <span>Personalizar Impresion</span></a></li>
+        </ul>
+</nav>
+    <main>
+        <header>
+            <div class="logo-contenedor">
+            <img src="imagenes/Logo en negro.png" alt="Logo" class="nav-logo">
+        </div>
+        
+            <div class="buscador">
+               <input type="text" placeholder="Buscar diseños o materiales...">
+               <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+         
+           <div class="iconos-usuario">
+      <i class="fa-regular fa-bell" onclick="document.getElementById('modal-notificaciones').showModal()"></i>
+      <i class="fa-regular fa-comment-dots" onclick="document.getElementById('modal-chat').showModal()"></i>
+      <i class="fa-solid fa-basket-shopping" onclick="window.location.href='mis_pedidos.html'" style="cursor:pointer;"></i>
+      <i class="fa-regular fa-circle-question"></i>
+           </div>
+        </header>
+
+        <section class="personalizar-contenedor">
+        <h2 class="titulo-seccion">Configura tu Impresión</h2>
+
+        <div class="layout-personalizar">
+            <div class="columna-carga">
+                <div class="dropzone-personalizar" id="dropzone">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Selecciona o arrastra tu archivo <strong>.STL</strong> o <strong>.OBJ</strong></p>
+                    <input type="file" id="fileInput" hidden>
+                    <button class="btn-seleccionar" onclick="document.getElementById('fileInput').click()">Elegir Archivo</button>
+                </div>
+                
+                <div class="vista-previa-3d">
+                    <p><i class="fa-solid fa-cube"></i> Vista previa del modelo</p>
+                </div>
+            </div>
+
+            <div class="columna-opciones">
+                <div class="tarjeta-opcion">
+                    <h3>1. Elige el Material</h3>
+                    <div class="opciones-grid">
+                        <label class="opcion-radio">
+                            <input type="radio" name="material" value="pla" checked>
+                            <span class="radio-card"><strong>PLA</strong><br><small>Fácil y biodegradable</small></span>
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="material" value="petg">
+                            <span class="radio-card"><strong>PETG</strong><br><small>Resistente y duradero</small></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="tarjeta-opcion">
+                    <h3>2. Selecciona el Color</h3>
+                    <div class="colores-grid">
+                        <button class="color-circulo" style="background-color: #000;" title="Negro"></button>
+                        <button class="color-circulo" style="background-color: #fff; border: 1px solid #ccc;" title="Blanco"></button>
+                        <button class="color-circulo" style="background-color: #ff0000;" title="Rojo"></button>
+                        <button class="color-circulo" style="background-color: #0000ff;" title="Azul"></button>
+                        <button class="color-circulo" style="background-color: #00ff00;" title="Verde"></button>
+                    </div>
+                </div>
+
+                <div class="resumen-cotizacion">
+                    <div class="precio-fila">
+                        <span>Costo estimado:</span>
+                        <strong id="precio-estimado">$0.00</strong>
+                    </div>
+                    <button class="btn-añadir-carrito" disabled>Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impresiones 3D</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/outh.js"></script>
+</head>
+<dialog id="modal-materiales">
+    <h2>Nuestros Materiales</h2>
+    <div class="lista-materiales">
+        <div class="material-item">
+            <strong>PLA:</strong> Ideal para figuras decorativas. Biodegradable y con muchos colores.
+        </div>
+        <div class="material-item">
+            <strong>PETG:</strong> Resistente al impacto y al calor. Perfecto para piezas mecánicas.
+        </div>
+        <div class="material-item">
+            <strong>Resina:</strong> Máximo detalle para miniaturas y joyería.
+        </div>
+    </div>
+    <button onclick="document.getElementById('modal-materiales').close()" class="btn-cerrar">Cerrar</button>
+</dialog>
+<dialog id="modal-notificaciones" class="modal-pequeño">
+    <div class="modal-header">
+        <h3>Notificaciones</h3>
+        <button onclick="document.getElementById('modal-notificaciones').close()" class="btn-cerrar-x">×</button>
+    </div>
+    <div class="lista-notificaciones">
+        <div class="noti-item">✅ Tu pedido #11 ha sido enviado.</div>
+        <div class="noti-item">🔥 ¡Nuevo material disponible: Resina Flex!</div>
+        <div class="noti-item">👤 Uriel te envió un mensaje.</div>
+    </div>
+</dialog>
+
+<dialog id="modal-chat" class="modal-pequeño">
+    <div class="modal-header">
+        <h3>Chat con Soporte</h3>
+        <button onclick="document.getElementById('modal-chat').close()" class="btn-cerrar-x">×</button>
+    </div>
+    <div class="cuerpo-chat">
+        <p class="msg-bot">Hola, ¿en qué podemos ayudarte con tu impresión 3D?</p>
+    </div>
+    <div class="input-chat">
+        <input type="text" placeholder="Escribe un mensaje...">
+        <button><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</dialog>
+<body>
+    <nav>
+        <button id="btn-colapsar" class="btn-icon">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+       </div>
+    <ul>
+            <li><a href="main.html"><i class="fa-solid fa-house"></i> <span>Inicio</span></a></li>
+            <li><a href="catalogo.html"><i class="fa-solid fa-cart-shopping"></i> <span>Catalogo</span></a></li>
+            <li><a href="mis_pedidos.html"><i class="fa-solid fa-box"></i> <span>Mis pedidos</span></a></li>
+            <li><a href="personalizar_impresion.html"><i class="fa-solid fa-palette"></i> <span>Personalizar Impresion</span></a></li>
+        </ul>
+ </nav>
+    <main>
+        <header>
+            <div class="logo-contenedor">
+            <img src="imagenes/Logo en negro.png" alt="Logo" class="nav-logo">
+        </div>
+        
+            <div class="buscador">
+    <input type="text" id="input-busqueda" list="categorias-3d" placeholder="Buscar categorías (Articulados, Decoración...)" autocomplete="off">
+    <i class="fa-solid fa-magnifying-glass" id="btn-buscar"></i>
+
+       <datalist id="categorias-3d">
+           <option value="Articulados">
+           <option value="Decoración">
+           <option value="Utilitarios">
+           <option value="Educativos">
+           <option value="Miniaturas">
+       </datalist>
+           </div>
+
+           <div class="iconos-usuario">
+      <i class="fa-regular fa-bell" onclick="document.getElementById('modal-notificaciones').showModal()"></i>
+      <i class="fa-regular fa-comment-dots" onclick="document.getElementById('modal-chat').showModal()"></i>
+      <i class="fa-solid fa-basket-shopping" onclick="window.location.href='mis_pedidos.html'" style="cursor:pointer;"></i>
+      <i class="fa-regular fa-circle-question"></i>
+           </div>
+        </header>
+        <section class="hero-seccion">
+            <div class="hero-texto">
+                <span class="hero-subtitulo">Impresión 3D profesional a domicilio o recolección local</span>
+                <h1 class="hero-titulo">Imprime tus diseños 3D</h1>
+                
+                <ol class="hero-pasos">
+                    <li>1. Sube tu diseño</li>
+                    <li>2. Cotiza y Paga</li>
+                    <li>3. Recibe o Recoge</li>
+                </ol>
+
+                <div class="hero-botones">
+                   <button class="btn-primario-hero" onclick="window.location.href='personalizar_impresion.html'">Empezar Cotización</button>
+                    <button class="btn-secundario-hero" onclick="document.getElementById('modal-materiales').showModal()">Ver Materiales</button>
+                </div>
+            </div>
+
+            <div class="hero-upload-nuevo">
+    <div class="upload-contenido">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <p>Arrastra tu archivo <strong>.stl</strong> aquí para cotizar</p>
+        <button class="btn-subir-mini" onclick="window.location.href='personalizar_impresion.html'">Elegir Archivo</button>
+     </div>
+       </div>
+        </section>
+
+        <section class="comunidad-seccion">
+            <h2 class="comunidad-titulo">Diseños de la comunidad</h2>
+            
+            <div class="grid-comunidad">
+                <div class="card-comunidad">
+                    <img src="imagenes/Imagenpez3d.png" alt="Pez">
+                    <div class="card-info">
+                        <h3>Carro feo</h3>
+                        <span class="tag">TAG</span>
+                    </div>
+                </div>
+
+                <div class="card-comunidad">
+                    <img src="imagenes/Araña3d.png" alt="Araña">
+                    <div class="card-info">
+                        <h3>Conejo feo</h3>
+                        <span class="tag">TAG</span>
+                    </div>
+                </div>
+
+                <div class="card-comunidad">
+                    <img src="imagenes/Imagen carro3d.png" alt="Carro">
+                    <div class="card-info">
+                        <h3>Pez feo</h3>
+                        <span class="tag">TAG</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            // Revisa si venimos desde el buscador (main.html) o si se escribió directo
+            const buscado = params.get('buscar') || params.get('categoria');
+
+            if (buscado) {
+                const botones = document.querySelectorAll('.filtro-btn');
+                const termino = buscado.toLowerCase();
+
+                botones.forEach(btn => {
+                    if (btn.textContent.toLowerCase().includes(termino)) {
+                        // Quitamos 'activo' de todos y se lo damos al que coincide
+                        botones.forEach(b => b.classList.remove('activo'));
+                        btn.classList.add('activo');
+                        
+                        // Scroll suave hasta el título para que el usuario vea que algo pasó
+                        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        });
+    </script>
+ </body>
+ </html>
