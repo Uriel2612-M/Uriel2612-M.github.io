@@ -1066,3 +1066,7 @@ body, html {
 #btn-login:hover {
     background-color: #4ebce2; 
 }
+
+.mitad-formulario{
+   margin: 20px;
+}
