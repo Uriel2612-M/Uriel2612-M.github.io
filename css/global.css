@@ -981,6 +981,7 @@ body, html {
 
 /* --- LADO DERECHO (FORMULARIO) --- */
 .mitad-formulario {
+    margin: 20px;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -1065,8 +1066,4 @@ body, html {
 
 #btn-login:hover {
     background-color: #4ebce2; 
-}
-
-.mitad-formulario{
-   margin: 20px;
 }
