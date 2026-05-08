@@ -68,8 +68,9 @@
         .info-compra {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-        }
+            justify-content: center; /* Centra el texto verticalmente junto a la imagen */
+            gap: 15px; /* Separa los renglones para que no se vean amontonados */
+        }   
 
         .breadcrumbs { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
         #titulo-detalle { font-size: 2.8rem; color: #1a3a5a; margin: 0; line-height: 1.2; }
@@ -152,29 +153,30 @@
 
         <section class="detalle-contenedor">
             <div class="layout-detalle">
-                <div class="visor-producto">
-                    <img src="" alt="Cargando..." id="img-detalle">
+            
+            <div class="visor-producto">
+                <img id="img-detalle" src="imagenes/dragon.png" alt="Modelo 3D">
+            </div>
+
+            <div class="info-compra">
+                <nav class="breadcrumbs">Inicio > Catálogo > <span id="bread-cat">Modelo</span></nav>
+                <h1 id="titulo-detalle">Cargando...</h1>
+                <p class="precio-tag" id="precio-detalle">$0.00</p>
+                
+                <div class="descripcion">
+                    <h3>Sobre este diseño</h3>
+                    <p id="desc-detalle">Cargando información técnica del autor...</p>
                 </div>
 
-                <div class="info-compra">
-                    <nav class="breadcrumbs">Inicio > Catálogo > <span id="bread-cat">Modelo</span></nav>
-                    <h1 id="titulo-detalle">Cargando...</h1>
-                    <p class="precio-tag" id="precio-detalle">$0.00</p>
-                    
-                    <div class="descripcion">
-                        <h3>Sobre este diseño</h3>
-                        <p id="desc-detalle">Cargando información técnica del autor...</p>
-                    </div>
-
-                    <div class="especificaciones">
-                        <span><i class="fa-solid fa-weight-hanging"></i> <strong>Peso:</strong> <span id="peso-detalle">--</span></span>
-                        <span><i class="fa-solid fa-clock"></i> <strong>Tiempo:</strong> <span id="tiempo-detalle">--</span></span>
-                    </div>
-
-                    <button class="btn-pedir" onclick="window.location.href='personalizar_impresion.html'">
-                        <i class="fa-solid fa-print"></i> Configurar e Imprimir
-                    </button>
+                <div class="especificaciones">
+                    <span><i class="fa-solid fa-weight-hanging"></i> <strong>Peso:</strong> <span id="peso-detalle">--</span></span>
+                    <span><i class="fa-solid fa-clock"></i> <strong>Tiempo:</strong> <span id="tiempo-detalle">--</span></span>
                 </div>
+
+                <button class="btn-pedir" onclick="window.location.href='personalizar_impresion.html'">
+                    <i class="fa-solid fa-print"></i> Configurar e Imprimir
+                </button>
+            </div>
             </div>
         </section>
     </main>
@@ -186,9 +188,9 @@
 
             const productos = {
                 'carro-feo': {
-                    titulo: "Carro Feo Articulado",
+                    titulo: "Carro Articulado",
                     precio: "$150.00",
-                    img: "imagenes/carro_feo.png",
+                    img: "imagenes/Imagen carro3d.png",
                     desc: "Un diseño clásico para pruebas de tortura en impresión FDM. Articulaciones impresas en una sola pieza.",
                     peso: "45g",
                     tiempo: "3h 20m",
